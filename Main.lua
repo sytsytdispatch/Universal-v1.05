@@ -1,4 +1,4 @@
---//v1.05
+--//v1.11
 --//made by sytsytdispatch
 
 
@@ -240,66 +240,200 @@ spinCharacter()
 })
 
 local Button = AETab:CreateButton({
-   Name = "FULL BODY ESP",
+   Name = "Box ESP",
    Callback = function()
--- LocalPlayer refers to the player using the script
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+local plr = game.Players.LocalPlayer
+local camera = game.Workspace.CurrentCamera
 
--- Function to change a player's character color to bright red
-local function changeColorToRed(character)
-    for _, part in pairs(character:GetChildren()) do
-        if part:IsA("BasePart") then
-            part.BrickColor = BrickColor.new("Bright red") -- Change the part's color to bright red
-        end
+for i, v in pairs(game.Players:GetChildren()) do
+    local Top = Drawing.new("Line")
+    Top.Visible = false
+    Top.From = Vector2.new(0, 0)
+    Top.To = Vector2.new(200, 200)
+    Top.Color = Color3.fromRGB(255, 0, 0)
+    Top.Thickness = 2
+    Top.Transparency = 1
+
+    local Bottom = Drawing.new("Line")
+    Bottom.Visible = false
+    Bottom.From = Vector2.new(0, 0)
+    Bottom.To = Vector2.new(200, 200)
+    Bottom.Color = Color3.fromRGB(255, 0, 0)
+    Bottom.Thickness = 2
+    Bottom.Transparency = 1
+
+    local Left = Drawing.new("Line")
+    Left.Visible = false
+    Left.From = Vector2.new(0, 0)
+    Left.To = Vector2.new(200, 200)
+    Left.Color = Color3.fromRGB(255, 0, 0)
+    Left.Thickness = 2
+    Left.Transparency = 1
+
+    local Right = Drawing.new("Line")
+    Right.Visible = false
+    Right.From = Vector2.new(0, 0)
+    Right.To = Vector2.new(200, 200)
+    Right.Color = Color3.fromRGB(255, 0, 0)
+    Right.Thickness = 2
+    Right.Transparency = 1
+
+    function ESP()
+        local connection
+        connection = game:GetService("RunService").RenderStepped:Connect(function()
+            if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v.Name ~= plr.Name and v.Character.Humanoid.Health > 0 then 
+                local ScreenPos, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                if OnScreen then
+                    local Scale = v.Character.Head.Size.Y/2
+                    local Size = Vector3.new(2, 3, 0) * (Scale * 2)
+                    local humpos = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                    local TL = camera:WorldToViewportPoint((v.Character.HumanoidRootPart.CFrame * CFrame.new(Size.X, Size.Y, 0)).p)
+                    local TR = camera:WorldToViewportPoint((v.Character.HumanoidRootPart.CFrame * CFrame.new(-Size.X, Size.Y, 0)).p)
+                    local BL = camera:WorldToViewportPoint((v.Character.HumanoidRootPart.CFrame * CFrame.new(Size.X, -Size.Y, 0)).p)
+                    local BR = camera:WorldToViewportPoint((v.Character.HumanoidRootPart.CFrame * CFrame.new(-Size.X, -Size.Y, 0)).p)
+
+                    Top.From = Vector2.new(TL.X, TL.Y)
+                    Top.To = Vector2.new(TR.X, TR.Y)
+
+                    Left.From = Vector2.new(TL.X, TL.Y)
+                    Left.To = Vector2.new(BL.X, BL.Y)
+
+                    Right.From = Vector2.new(TR.X, TR.Y)
+                    Right.To = Vector2.new(BR.X, BR.Y)
+
+                    Bottom.From = Vector2.new(BL.X, BL.Y)
+                    Bottom.To = Vector2.new(BR.X, BR.Y)
+
+                    if v.TeamColor == plr.TeamColor then
+                        Top.Color = Color3.fromRGB(0, 255, 0)
+                        Left.Color = Color3.fromRGB(0, 255, 0)
+                        Bottom.Color = Color3.fromRGB(0, 255, 0)
+                        Right.Color = Color3.fromRGB(0, 255, 0)
+                    else 
+                        Top.Color = Color3.fromRGB(255, 0, 0)
+                        Left.Color = Color3.fromRGB(255, 0, 0)
+                        Bottom.Color = Color3.fromRGB(255, 0, 0)
+                        Right.Color = Color3.fromRGB(255, 0, 0)
+                    end
+
+                    Top.Visible = true
+                    Left.Visible = true
+                    Bottom.Visible = true
+                    Right.Visible = true
+                else 
+                    Top.Visible = false
+                    Left.Visible = false
+                    Bottom.Visible = false
+                    Right.Visible = false
+                end
+            else 
+                Top.Visible = false
+                Left.Visible = false
+                Bottom.Visible = false
+                Right.Visible = false
+                if game.Players:FindFirstChild(v.Name) == nil then
+                    connection:Disconnect()
+                end
+            end
+        end)
     end
+    coroutine.wrap(ESP)()
 end
 
--- Function to create a highlight for the player's character
-local function createHighlight(character)
-    -- Check if the character already has a highlight
-    if character:FindFirstChild("Highlight") then return end
+game.Players.PlayerAdded:Connect(function(newplr) --Parameter gets the new player that has been added
+    local Top = Drawing.new("Line")
+    Top.Visible = false
+    Top.From = Vector2.new(0, 0)
+    Top.To = Vector2.new(200, 200)
+    Top.Color = Color3.fromRGB(255, 0, 0)
+    Top.Thickness = 2
+    Top.Transparency = 1
 
-    -- Create a new highlight instance
-    local highlight = Instance.new("Highlight")
-    highlight.FillColor = Color3.new(1, 0, 0) -- Set highlight fill color to bright red
-    highlight.FillTransparency = 0.5 -- Set transparency for visibility through walls
-    highlight.OutlineTransparency = 0.1 -- Adjust outline transparency
-    highlight.Parent = character -- Parent the highlight to the character
-end
+    local Bottom = Drawing.new("Line")
+    Bottom.Visible = false
+    Bottom.From = Vector2.new(0, 0)
+    Bottom.To = Vector2.new(200, 200)
+    Bottom.Color = Color3.fromRGB(255, 0, 0)
+    Bottom.Thickness = 2
+    Bottom.Transparency = 1
 
--- Function to apply changes to all players
-local function applyChangesToPlayers()
-    for _, player in pairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character then
-            changeColorToRed(player.Character)
-            createHighlight(player.Character)
-        end
+    local Left = Drawing.new("Line")
+    Left.Visible = false
+    Left.From = Vector2.new(0, 0)
+    Left.To = Vector2.new(200, 200)
+    Left.Color = Color3.fromRGB(255, 0, 0)
+    Left.Thickness = 2
+    Left.Transparency = 1
+
+    local Right = Drawing.new("Line")
+    Right.Visible = false
+    Right.From = Vector2.new(0, 0)
+    Right.To = Vector2.new(200, 200)
+    Right.Color = Color3.fromRGB(255, 0, 0)
+    Right.Thickness = 2
+    Right.Transparency = 1
+
+    function ESP()
+        local connection
+        connection = game:GetService("RunService").RenderStepped:Connect(function()
+            if newplr.Character ~= nil and newplr.Character:FindFirstChild("HumanoidRootPart") ~= nil and newplr.Name ~= plr.Name  and newplr.Character.Humanoid.Health > 0 then
+                local ScreenPos, OnScreen = camera:WorldToViewportPoint(newplr.Character.HumanoidRootPart.Position)
+                if OnScreen then
+                    local Scale = newplr.Character.Head.Size.Y/2
+                    local Size = Vector3.new(2, 3, 0) * (Scale * 2)
+                    local humpos = camera:WorldToViewportPoint(newplr.Character.HumanoidRootPart.Position)
+                    local TL = camera:WorldToViewportPoint((newplr.Character.HumanoidRootPart.CFrame * CFrame.new(Size.X, Size.Y, 0)).p)
+                    local TR = camera:WorldToViewportPoint((newplr.Character.HumanoidRootPart.CFrame * CFrame.new(-Size.X, Size.Y, 0)).p)
+                    local BL = camera:WorldToViewportPoint((newplr.Character.HumanoidRootPart.CFrame * CFrame.new(Size.X, -Size.Y, 0)).p)
+                    local BR = camera:WorldToViewportPoint((newplr.Character.HumanoidRootPart.CFrame * CFrame.new(-Size.X, -Size.Y, 0)).p)
+
+                    Top.From = Vector2.new(TL.X, TL.Y)
+                    Top.To = Vector2.new(TR.X, TR.Y)
+
+                    Left.From = Vector2.new(TL.X, TL.Y)
+                    Left.To = Vector2.new(BL.X, BL.Y)
+
+                    Right.From = Vector2.new(TR.X, TR.Y)
+                    Right.To = Vector2.new(BR.X, BR.Y)
+
+                    Bottom.From = Vector2.new(BL.X, BL.Y)
+                    Bottom.To = Vector2.new(BR.X, BR.Y)
+
+                    if newplr.TeamColor == plr.TeamColor then
+                        Top.Color = Color3.fromRGB(0, 255, 0)
+                        Left.Color = Color3.fromRGB(0, 255, 0)
+                        Bottom.Color = Color3.fromRGB(0, 255, 0)
+                        Right.Color = Color3.fromRGB(0, 255, 0)
+                    else 
+                        Top.Color = Color3.fromRGB(255, 0, 0)
+                        Left.Color = Color3.fromRGB(255, 0, 0)
+                        Bottom.Color = Color3.fromRGB(255, 0, 0)
+                        Right.Color = Color3.fromRGB(255, 0, 0)
+                    end
+
+                    Top.Visible = true
+                    Left.Visible = true
+                    Bottom.Visible = true
+                    Right.Visible = true
+                else 
+                    Top.Visible = false
+                    Left.Visible = false
+                    Bottom.Visible = false
+                    Right.Visible = false
+                end
+            else 
+                Top.Visible = false
+                Left.Visible = false
+                Bottom.Visible = false
+                Right.Visible = false
+                if game.Players:FindFirstChild(newplr.Name) == nil then
+                    connection:Disconnect()
+                end
+            end
+        end)
     end
-end
-
--- Run the script initially
-applyChangesToPlayers()
-
--- Connect to PlayerAdded event to apply changes to new players
-Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function(character)
-        changeColorToRed(character)
-        createHighlight(character)
-    end)
+    coroutine.wrap(ESP)()
 end)
-
--- Connect to CharacterAdded event for all current players
-for _, player in pairs(Players:GetPlayers()) do
-    if player.Character then
-        changeColorToRed(player.Character)
-        createHighlight(player.Character)
-    end
-    player.CharacterAdded:Connect(function(character)
-        changeColorToRed(character)
-        createHighlight(character)
-    end)
-end
    end,
 })
 
