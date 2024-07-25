@@ -15,7 +15,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "Blackyhub121"
    },
    Discord = {
-      Enabled = false,
+      Enabled = true,
       Invite = "Cf3cmK5uwB",
       RememberJoins = true
    },
