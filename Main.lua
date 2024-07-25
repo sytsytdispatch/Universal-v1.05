@@ -21,13 +21,13 @@ local Window = Rayfield:CreateWindow({
    },
    KeySystem = true,
    KeySettings = {
-      Title = "Verify you are not a bot",
-      Subtitle = "The key is on the side",
-      Note = "Key: VERIFY123",
+      Title = "Join the discord for the key!",
+      Subtitle = "https://discord.gg/4xPkdpE6A8",
+      Note = "https://discord.gg/4xPkdpE6A8",
       FileName = "Blackyhub1212",
       SaveKey = false,
       GrabKeyFromSite = false,
-      Key = {"VERIFY123"}
+      Key = {"SIKO"}
    }
 })
 print("User is a Human")
