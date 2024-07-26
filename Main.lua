@@ -1012,19 +1012,8 @@ local Button = GUITab:CreateButton({
    end,
 })
 
-local Button = GUITab:CreateButton({
-   Name = "BloxFruits GUI",
-   Callback = function()
-   loadstring(game:HttpGet"https://raw.githubusercontent.com/Basicallyy/Basicallyy/main/MinGamingV4.lua")()
-   end,
-})
 
-local Button = GUITab:CreateButton({
-   Name = "BladeBall",
-   Callback = function()
-   loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/ab6906cda6641c69a5f3a6c0c2ad6d80.lua"))()
-   end,
-})
+
 
 
 print("Everything was a success")
