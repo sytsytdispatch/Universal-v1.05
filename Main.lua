@@ -77,7 +77,7 @@ local Button = Tab:CreateButton({
          end)
          print("Infinite Jump Enabled")
       else
-         -- Disable infinite jump (normal delay)
+         
          game:GetService("UserInputService").JumpRequest:disconnect()
          print("Infinite Jump Disabled")
       end
@@ -87,11 +87,11 @@ local Button = Tab:CreateButton({
 local Button = Tab:CreateButton({
    Name = "Shift to ZOOM",
    Callback = function()
-   -- Define the player and initial walking speed
+   
 local player = game.Players.LocalPlayer
 local walkingSpeed = 16  -- Default walking speed
 
--- Function to handle key press events
+
 local function onKeyPress(input)
     if input.KeyCode == Enum.KeyCode.LeftShift then
         -- Increase walking speed when Shift is pressed
@@ -107,7 +107,7 @@ local function onKeyRelease(input)
     end
 end
 
--- Connect key press and release events
+
 game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
 game:GetService("UserInputService").InputEnded:Connect(onKeyRelease)
 
@@ -147,15 +147,15 @@ end)
 local Button = TPTab:CreateButton({
    Name = "TP to nearest person (press V)",
    Callback = function()
-   -- Define the key you want to use for teleporting
+   
 local teleportKey = Enum.KeyCode.V
 
--- Function to calculate distance between two points
+
 local function distance(pos1, pos2)
     return (pos1 - pos2).magnitude
 end
 
--- Function to find the nearest player
+
 local function findNearestPlayer()
     local players = game.Players:GetPlayers()
     local closestPlayer = nil
@@ -179,7 +179,7 @@ local function findNearestPlayer()
     return closestPlayer
 end
 
--- Teleport function
+
 local function teleportToNearestPlayer()
     local nearestPlayer = findNearestPlayer()
     if nearestPlayer then
@@ -192,7 +192,7 @@ local function teleportToNearestPlayer()
     end
 end
 
--- Bind the teleport function to the key press
+
 game:GetService("UserInputService").InputBegan:Connect(function(input)
     if input.KeyCode == teleportKey then
         teleportToNearestPlayer()
