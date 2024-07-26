@@ -27,7 +27,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "Blackyhub1212",
       SaveKey = false,
       GrabKeyFromSite = false,
-      Key = {"SIKO"}
+      Key = {"BLDR"}
    }
 })
 print("User is a Human")
