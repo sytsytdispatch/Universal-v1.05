@@ -1,4 +1,4 @@
---//v1.11
+--//v1.2
 --//made by sytsytdispatch
 
 
@@ -6,7 +6,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 print("successfully injected Key system")
 local Window = Rayfield:CreateWindow({
-   Name = "Universal plus+",
+   Name = "Universal Plus Plus",
    LoadingTitle = "Universal Plus is loading..",
    LoadingSubtitle = "by Sirius and sytsytdispatch",
    ConfigurationSaving = {
@@ -34,7 +34,8 @@ print("User is a Human")
 local Tab = Window:CreateTab("Local Player", nil)
 local TPTab = Window:CreateTab("Teleportation", nil) -- Title, Image
 local AETab = Window:CreateTab("ESP and Aimbot", nil) -- Title, Image
-local TRTab = Window:CreateTab("Troll", nil) -- Title, Image
+local TRTab = Window:CreateTab("Admin", nil) -- Title, Image
+local GUITab = Window:CreateTab("Game GUI's", nil) -- Title, Image
 print("Successfully injected Universal++")
 local Slider1 = Tab:CreateSlider({
    Name = "Walkspeed",
@@ -792,16 +793,20 @@ end)
    end,
 })
 
-local Toggle = TRTab:CreateToggle({
-    Name = "Troll section coming soon!",
-    CurrentValue = false,
-    Flag = "Annoyer101Universal123",
-    Callback = function(Value)
-print("Coming soon!")
-
-    end,
+local Button = TRTab:CreateButton({
+   Name = "Infinite Yield",
+   Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   end,
 })
 
+local Button = TRTab:CreateButton({
+   Name = "Nameless Admin",
+   Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))() 
+        
+   end,
+})
 
 print("Everything was a success")
-print("Enjoy universal Plus Plus V1.06")
+print("Enjoy universal Plus Plus V1.2")
